@@ -14,9 +14,9 @@ public class ApplicationService {
         this.userRepository = userRepository;
     }
 
-    public boolean postUser(User user) {
+    public User postUser(User user) {
         User savedUser = userRepository.save(user);
-        return true;
+        return savedUser;
     }
 
     public User getUser(String id) {

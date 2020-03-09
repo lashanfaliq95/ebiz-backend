@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
 public class ApplicationController {
@@ -19,14 +20,15 @@ public class ApplicationController {
         this.applicationService = applicationService;
     }
 
+    @ResponseBody
     @PostMapping("/")
     private ResponseEntity<?> postUser(@Valid @RequestBody User user,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // Errors
             return null;
         }
-        applicationService.postUser(user);
-        return ResponseEntity.ok(true);
+        User postingUser = applicationService.postUser(user);
+        return ResponseEntity.ok(postingUser.getId());
     }
 
     @GetMapping("/{id}")
